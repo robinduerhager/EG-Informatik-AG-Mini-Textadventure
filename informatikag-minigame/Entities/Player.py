@@ -1,7 +1,5 @@
-from Mechanics import Dice
-from Mechanics import Inventory
-
-DEFAULT_WEAPON = {'type': 'DEFAULT', 'weapon_type': 'FISTS', 'name': 'Fists', 'damage_multiplier': 1}
+from Mechanics import Dice, Inventory
+from Entities import Item
 
 _player_stats = {
     'name': '',
@@ -11,7 +9,7 @@ _player_stats = {
         'agility': Dice.six_sided_dice
     },
     'health': 100,
-    'equipped_item': DEFAULT_WEAPON,
+    'equipped_item': Item.get_default_weapon(),
 }
 
 
@@ -23,7 +21,11 @@ def attack(enemy) -> None:
     for dice in dice_set:
         damage_result += dice['roll']()
 
-    enemy['health'] -= damage_result
+    enemy['take_damage'](damage_result)
+
+
+def take_damage(damage):
+    _player_stats['health'] = max(0, _player_stats['health'] - damage)
 
 
 def _choose_dice_set():
@@ -34,16 +36,16 @@ def _choose_dice_set():
     damage_die = Dice.four_sided_dice
     equipped_item = _player_stats['equipped_item']
 
-    if equipped_item['type'] in ('WEAPON', 'DEFAULT'):
+    if equipped_item['type'] in (Item.item_type.WEAPON, Item.item_type.DEFAULT):
         # If we use a Weapon, use the damage_multiplier attribute
         match equipped_item['weapon_type']:
             # First determine the damage die we should use based on the weapon attributes
-            case 'BLADE':
+            case Item.weapon_type.BLADE:
                 # If we use a blade, use the strength die
                 damage_die = _player_stats['attributes']['strength']
-            case 'FISTS':
+            case Item.weapon_type.FISTS:
                 damage_die = _player_stats['attributes']['strength']
-            case 'BOW':
+            case Item.weapon_type.BOW:
                 damage_die = _player_stats['attributes']['agility']
             case _:
                 raise TypeError('Invalid equipped_item type')
@@ -65,13 +67,13 @@ def equip_item(item_index) -> None:
     _player_stats['equipped_item'] = Inventory.get_item(item_index)
     Inventory.remove_item(item_index)
 
-    if previously_equipped_item['type'] is not DEFAULT_WEAPON['type']:
+    if previously_equipped_item['type'] is not Item.get_default_weapon()['type']:
         # If the player didn't equip any item, we don't have to add 'None' into the Inventory list
         Inventory.add_item(previously_equipped_item)
 
 
 def unequip():
-    if _player_stats['equipped_item']['type'] is not DEFAULT_WEAPON['type']:
+    if _player_stats['equipped_item']['type'] is not Item.get_default_weapon()['type']:
         Inventory.add_item(_player_stats['equipped_item'])
 
-    _player_stats['equipped_item'] = DEFAULT_WEAPON
+    _player_stats['equipped_item'] = Item.get_default_weapon()

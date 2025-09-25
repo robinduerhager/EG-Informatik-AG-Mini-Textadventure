@@ -1,11 +1,6 @@
 _inventory = {
     'gold': 0,
-    'items': [
-        {'type': 'WEAPON', 'weapon_type': 'BLADE', 'name': 'test_blade',
-         'damage_multiplier': 2},
-        {'type': 'WEAPON', 'weapon_type': 'BOW', 'name': 'test_bow',
-         'damage_multiplier': 3}
-    ],
+    'items': [],
     'size': 5
 }
 
