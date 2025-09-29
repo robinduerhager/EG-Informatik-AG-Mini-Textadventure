@@ -7,6 +7,7 @@ current_enemy = {
     'base_damage_die': Dice.get_random_dice()
 }
 
+
 def attack(player):
     enemy_damage_value = 0
 
@@ -15,11 +16,13 @@ def attack(player):
 
     player['health'] -= enemy_damage_value
 
+
 def take_damage(damage):
     current_enemy['health'] = max(0, current_enemy['health'] - damage)
 
+
 def generate_enemy():
-    global current_enemy # Else, a "new" current_enemy variable will be created, but we want to set the "global" one on the top of the file
+    global current_enemy  # Else, a "new" current_enemy variable will be created, but we want to set the "global" one on the top of the file
 
     generated_enemy = {
         'health': 100,
