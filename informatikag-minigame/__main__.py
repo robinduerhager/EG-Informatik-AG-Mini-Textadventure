@@ -1,5 +1,5 @@
 from Entities import Player
-from Entities import NPC
+from Entities import Enemy
 import pprint
 
 
