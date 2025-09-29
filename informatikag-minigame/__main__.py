@@ -1,15 +1,7 @@
-from Entities import Player
-from Entities import Enemy
-from Entities import Shop
+from Mechanics import Scenario
 
 def main() -> None:
-    # player_action = input("""Possible Commands:
-    # 1 - attack
-    # ---
-    # Please input what you want to do:
-    # """)
-
-    # Give the player Options based on the Szenario that is currently set
+    Scenario.begin_game()
 
 if __name__ == "__main__":
     main()
