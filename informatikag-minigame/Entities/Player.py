@@ -1,4 +1,4 @@
-from Mechanics import Dice, Inventory
+from Mechanics import Dice, Player_Inventory
 from Entities import Item
 
 _player_stats = {
