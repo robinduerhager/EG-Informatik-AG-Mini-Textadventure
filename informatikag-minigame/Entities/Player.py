@@ -36,14 +36,14 @@ def _choose_dice_set():
     damage_die = Dice.four_sided_dice
     equipped_item = _player['equipped_item']
 
-    if equipped_item['type'] in (Item.item_type.WEAPON, Item.item_type.DEFAULT):
+    if equipped_item['type'] in Item.item_type.WEAPONS:
         # If we use a Weapon, use the damage_multiplier attribute
         match equipped_item['weapon_type']:
             # First determine the damage die we should use based on the weapon attributes
             case Item.weapon_type.BLADE:
                 # If we use a blade, use the strength die
                 damage_die = _player['attributes']['strength']
-            case Item.weapon_type.FISTS:
+            case Item.weapon_type.DEFAULT:
                 damage_die = _player['attributes']['strength']
             case Item.weapon_type.BOW:
                 damage_die = _player['attributes']['agility']

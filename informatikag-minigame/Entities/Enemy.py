@@ -1,10 +1,13 @@
+import random
+
 from Entities import Item
 from Mechanics import Dice
 
 current_enemy = {
     'health': 100,
     'weapon': Item.get_random_weapon(include_default_weapon=True),
-    'base_damage_die': Dice.get_random_dice()
+    'base_damage_die': Dice.get_random_dice(),
+    'gold': 50
 }
 
 
@@ -27,7 +30,8 @@ def generate_enemy():
     generated_enemy = {
         'health': 100,
         'weapon': Item.get_random_weapon(include_default_weapon=True),
-        'base_damage_die': Dice.get_random_dice()
+        'base_damage_die': Dice.get_random_dice(),
+        'gold': random.randint(0, 100)
     }
 
     current_enemy = generated_enemy
